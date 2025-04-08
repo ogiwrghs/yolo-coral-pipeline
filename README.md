@@ -34,7 +34,10 @@ Supports all YOLO architectures (v5, v8, v11, custom), and scales from Edge Dev 
    
 
 2. **Run Training:**  
-   to initiate your model's training, execute the training script named training.py in the folder training, with the following command: python3 training/train.py
+   to initiate your model's training, execute the training script named training.py in the folder training, with the following command:
+   ```bash
+   python3 training/train.py
+   ```
    
 3. **Export the Model**
 
@@ -59,4 +62,20 @@ Supports all YOLO architectures (v5, v8, v11, custom), and scales from Edge Dev 
       model.export(format='tflite', imgsz=512)  # Adjust imgsz based on your trained model's image size
       ```
 
+   d. **Configure the Quantization Script**
+      Edit the training script (`training/train.py`) by selecting the dataset you with to use for sampling during the quantization
+   (usually the **validation** dataset used during training is selected),
+    along with the paths to your **trained model**, and the folder you wish your output to be in (usually the source weights folder)
+
+   e. **Quantize the Model**
+      run the following command to quantize:
+   ```python
+   python3 quantization/int8quantizer.py
+    ```
+
+   f. **Run the Quantized Model through the Edgetpu Compiler**
+   ```python
+   python3 edgetpu_compiler weights/best_int8.tflite
+    ```
+   
    
