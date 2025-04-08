@@ -36,7 +36,7 @@ Supports all YOLO architectures (v5, v8, v11, custom), and scales from Edge Dev 
 2. **Run Training:**  
    to initiate your model's training, execute the training script named training.py in the folder training, with the following command:
    ```bash
-   python3 training/train.py
+   python3 training/training.py
    ```
    
 3. **Export the Model**
