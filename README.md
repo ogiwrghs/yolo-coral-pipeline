@@ -79,3 +79,14 @@ Supports all YOLO architectures (v5, v8, v11, custom), and scales from Edge Dev 
     ```
    
    
+4. **Perform Inference on the Finished Model**
+   after transferring the recently converted model, as well as the inference script on your device of choice activate the inference script, the terminal output will guide you from there.
+
+   When you examine the output from the Edge TPU Compiler, you may observe that certain operations in the model **"fallback"** from      the TPU to the CPU. Since these fallback operations are executed in a **single-threaded manner**, they can create a performance       bottleneck. To alleviate this issue, the inference script launches two instances of the model simultaneously. These instances     process incoming frames in an **alternating fashion**, thereby partially mitigating the single-thread bottleneck and improving        overall inference speed on Coral devices.
+
+   In addition, to maintain continuous tracking between these less frequent inference calls, the script employs a combination of     **MOSSE**-based correlation filters and **KLT** optical flow. On frames where the neural network is not invoked, the MOSSE tracker        quickly predicts object positions, while KLT optical flow refines bounding box alignment by tracking feature points within        each region. This technique bridges the performance gap left by single-threaded fallback, ensuring smoother and more              consistent object tracking throughout the live stream.
+
+   The bounding box estimation can be disabled within the script, this will also disable the non-inference state, meaning only frames that went through inference will be shown. As a result the framerate wil be lower. 
+
+   
+   
