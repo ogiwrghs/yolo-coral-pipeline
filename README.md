@@ -1,4 +1,4 @@
-# 🧠 YOLO Coral Pipeline
+# YOLO Coral Pipeline
 
 Train any YOLO model, convert to TFLite, quantize to INT8, and deploy on one or more Coral Edge TPUs — with real-time tracking, dual-inference threading, and a live web stream.
 
@@ -18,11 +18,18 @@ Supports all YOLO architectures (v5, v8, custom), and scales from Edge Dev Board
 
 ---
 
-## 🖥️ Requirements
+## Requirements
 
-> Dependencies are grouped by use case.
+- A version of PyTorch that supports your hardware (ensure you have the proper backend, e.g. CUDA or ROCm)
+- The basic Ultralytics package (the auto-updater will fetch other required components)
+- The Edge TPU Compiler; installation instructions are available [here](https://coral.ai/docs/edgetpu/compiler/)
 
-### Training
-```bash
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-pip install ultralytics==8.1.14
+---
+
+## Step-by-Step Instructions
+
+1. **Configure the Training Script:**  
+   Edit the training script (`training/train.py`) by setting the dataset paths and defining your project and iteration name. This is an all-in-one solution—no need to modify files outside of the script. (If you plan to train a multi-class network, set `single_cls` to `False`.)
+
+2. **Run Training:**  
+   to initiate your model's training, execute the training script named training.py in the folder training, with the following command: python3 training/train.py
