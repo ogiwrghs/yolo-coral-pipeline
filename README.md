@@ -30,7 +30,7 @@ Supports all YOLO architectures (v5, v8, v11, custom), and scales from Edge Dev 
 ## Step-by-Step Instructions
 
 1. **Configure the Training Script:**  
-   Edit the training script (`training/train.py`) by setting the dataset paths and defining your project and iteration name. This is an all-in-one solution, no need to modify files outside of the script. (If you plan to train a multi-class network, set `single_cls` to `False`.)
+   Edit the training script (`training/training.py`) by setting the dataset paths and defining your project and iteration name. This is an all-in-one solution, no need to modify files outside of the script. (If you plan to train a multi-class network, set `single_cls` to `False`.)
    
 
 2. **Run Training:**  
@@ -63,7 +63,7 @@ Supports all YOLO architectures (v5, v8, v11, custom), and scales from Edge Dev 
       ```
 
    d. **Configure the Quantization Script**
-      Edit the training script (`training/train.py`) by selecting the dataset you with to use for sampling during the quantization
+      Edit the quantization script (`quantization/int8quantizer.py`) by selecting the dataset you with to use for sampling during the quantization
    (usually the **validation** dataset used during training is selected),
     along with the paths to your **trained model**, and the folder you wish your output to be in (usually the source weights folder)
 
