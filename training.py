@@ -48,7 +48,7 @@ model.train(
     fliplr=0.5,           # Horizontal flip probability
     close_mosaic=30,      # Disables mosaic augmentation 30 epochs before training ends (with epochs=100, mosaic stops at epoch 70)
     multi_scale=True,     # Enable multi-scale training for better detection of objects of varied sizes
-    project="cat_finder_project",
-    name="v11n512",
+    project="cat-finder-project",
+    name="Iteration-1",
     resume=resume_mode,
 )
