@@ -18,9 +18,19 @@ Supports all YOLO architectures (v5, v8, v11, custom), and scales from Edge Dev 
 
 ---
 
+### Experimental: 45 FPS Hardware-Native Branch (WIP)
+Check the `experimental_v5_native` folder for the latest tests on bypassing the CPU bottleneck entirely.
+
+We are testing a pivot to a modified YOLOv5 architecture to completely eliminate the CPU fallback issue mentioned in the main guide. 
+* The Good: achieved a locked 45+ FPS on a single Edge TPU. We achieved this by forcing the model to train with ReLU activations instead of SiLU (which usually causes a CPU bottleneck on Coral). No MOSSE/KLT hacks or dual interpreters needed—just pure hardware speed.
+* The Bad (INT8 Amnesia): Post-Training Quantization (PTQ) to INT8 is currently crushing the bounding box decimal values to 0.0000. The model tracks the X/Y center perfectly at 45 FPS, but the bounding box width/height data gets wiped out during conversion. 
+* The Band-aid: The current `StreamRet.py` script uses a fixed 150x150 targeting reticle to bypass the glitch so OpenCV doesn't crash.
+* Next Steps: We are looking into Quantization-Aware Training (QAT) to preserve bounding box precision during the INT8 conversion step.
+
+
 ## Requirements
 
-- A version of PyTorch that supports your hardware (ensure you have the proper backend, e.g. CUDA or ROCm)
+- A version of PyTorch that supports your hardware (ensure you have the proper backend)
 - a relatively recent version of tensorflow
 - The basic Ultralytics package (the auto-updater will fetch other required components)
 - The Edge TPU Compiler installation instructions are available [here](https://coral.ai/docs/edgetpu/compiler/)
